@@ -1,12 +1,17 @@
 package com.example.demo.models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -31,13 +36,15 @@ public class User {
     @Size(groups=CreateUser.class, min=2, max=100)
     private String username;
 
+    @JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
     @Column(name="password", length=60, nullable=false)
     @NotNull(groups={CreateUser.class, UpdateUser.class} )
     @NotEmpty(groups={CreateUser.class, UpdateUser.class})
     @Size(groups={CreateUser.class, UpdateUser.class}, min=8,max=60)
     private String password;
 
-    //private List<Task> tasks = new ArrayList<Task>();
+    @OneToMany(mappedBy="user")
+    private List<Task> tasks = new ArrayList<Task>();
 
     public User() {
     }
@@ -73,6 +80,16 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+    public List<Task> getTasks() {
+        return this.tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
 
     @Override
     public boolean equals(Object obj){
