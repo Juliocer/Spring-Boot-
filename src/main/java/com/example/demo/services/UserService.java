@@ -2,13 +2,11 @@ package com.example.demo.services;
 
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.models.User;
-import com.example.demo.repositories.TaskReporitory;
 import com.example.demo.repositories.UserRepository;
 
 @Service
@@ -17,13 +15,12 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private TaskReporitory taskReporitory;
-
+    
     public User findById(Long id){
         Optional<User> user = this.userRepository.findById(id);
         return user.orElseThrow(()-> new RuntimeException(
-            "Usuario não encontrado! id: " + id + ", Tipo: " + User.class.getName()
+            "Usuario não encontrado! id: " + id + ", Tipo: " 
+            + User.class.getName()
         ));
     }
 
@@ -31,7 +28,6 @@ public class UserService {
     public User create(User obj){
         obj.setId(null);
         obj = this.userRepository.save(obj);
-        this.taskReporitory.saveAll(obj.getTasks());
         return obj;
     }
 
