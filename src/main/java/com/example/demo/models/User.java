@@ -28,7 +28,7 @@ public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id", unique=true)
-    private Integer id;
+    private Long id;
 
     @Column(name="username", length=100, nullable=false, unique=true)
     @NotNull(groups=CreateUser.class)
@@ -50,18 +50,18 @@ public class User {
     }
 
 
-    public User(Integer id, String username, String password) {
+    public User(Long id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
     }
 
 
-    public Integer getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
