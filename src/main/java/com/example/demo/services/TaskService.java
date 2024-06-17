@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,11 @@ public class TaskService {
     public Task findById(Long id) {
         Optional<Task> task = this.taskReporitory.findById(id);
         return task.orElseThrow(() -> new RuntimeException("Tarefa não encontrada! Id: " + id + ", Tipo: " + Task.class.getName()));
+    }
+
+    public List<Task> findAllByUserId(Long userId){
+        List<Task> tasks = this.taskReporitory.findByUser_id(userId);
+        return tasks;
     }
 
     @Transactional
