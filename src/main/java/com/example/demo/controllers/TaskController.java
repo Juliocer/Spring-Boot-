@@ -22,7 +22,7 @@ import com.example.demo.services.TaskService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping
+@RequestMapping("/task")
 @Validated
 public class TaskController {
     
